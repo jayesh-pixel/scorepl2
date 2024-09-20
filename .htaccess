@@ -1,0 +1,39 @@
+# Ensure PHP configurations for large file uploads and infinite script execution
+<IfModule mod_php7.c>
+   php_value upload_max_filesize 1G
+   php_value post_max_size 1G
+   php_value max_input_time 0
+   php_value max_execution_time 0
+</IfModule>
+
+<IfModule mod_php5.c>
+   php_value upload_max_filesize 1G
+   php_value post_max_size 1G
+   php_value max_input_time 0
+   php_value max_execution_time 0
+</IfModule>
+
+# Disable directory indexing and allow symbolic links
+Options +FollowSymLinks -Indexes
+
+# Enable URL rewriting
+RewriteEngine on
+
+# Set the base directory (ensure /scorepl/ is correct or adjust it)
+RewriteBase /scorepl/
+
+# Handle /manager/ routes
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^manager/([a-zA-Z_]+)?$ index.php?page=manager&object_type=$1 [L]
+
+# General URL rewriting to match multiple segments and pass them as 'page' query params
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^([a-zA-Z0-9\-]+)(/?[a-zA-Z0-9\-]*)(/?[a-zA-Z0-9\-]*)/?$ index.php?page=$1$2$3 [L]
+
+# Optional: Force HTTPS (uncomment to enable)
+# RewriteCond %{HTTPS} off
+# RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# Optional: Block access unless on admin subdomain (uncomment to enable)
+# RewriteCond %{HTTP_HOST} !^admin\. [NC]
+# RewriteRule .* - [F]

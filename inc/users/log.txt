@@ -1,0 +1,9 @@
+TimeStamp: 2024-09-18 16:04:38Page: /inc/users/dashboard.php
+Query: update user set error_reviewed=NOW() where id=1;
+Error: Unknown column 'error_reviewed' in 'field list'
+TimeStamp: 2024-09-18 16:04:44Page: /inc/users/dashboard.php
+Query: update user set error_reviewed=NOW() where id=1;
+Error: Unknown column 'error_reviewed' in 'field list'
+TimeStamp: 2024-09-18 16:04:46Page: /inc/users/dashboard.php
+Query: update user set error_reviewed=NOW() where id=1;
+Error: Unknown column 'error_reviewed' in 'field list'
