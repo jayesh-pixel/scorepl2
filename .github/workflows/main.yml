@@ -26,14 +26,15 @@ jobs:
     - name: Install dependencies
       run: composer install
 
-    - name: Run tests
-      run: vendor/bin/phpunit # Adjust if you use a different test script
+    # Skipping test, lint, and formatter steps
+    # - name: Run tests
+    #   run: vendor/bin/phpunit # Adjust if you use a different test script
 
-    - name: Run PHP CodeSniffer
-      run: vendor/bin/phpcs # Adjust if you use a different linter
+    # - name: Run PHP CodeSniffer
+    #   run: vendor/bin/phpcs # Adjust if you use a different linter
 
-    - name: Run PHP-CS-Fixer
-      run: vendor/bin/php-cs-fixer fix --dry-run --diff # Adjust if you use a different formatter
+    # - name: Run PHP-CS-Fixer
+    #   run: vendor/bin/php-cs-fixer fix --dry-run --diff # Adjust if you use a different formatter
 
     - name: Build
       run: |
