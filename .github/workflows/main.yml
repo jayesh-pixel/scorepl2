@@ -1,0 +1,48 @@
+name: PHP Workflow
+
+on:
+  push:
+    branches:
+      - master
+    tags:
+      - 'v*.*.*' # Matches version tags like v1.0.0
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Set up PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: '8.1' # or your preferred PHP version
+
+    - name: Install dependencies
+      run: composer install
+
+    - name: Run tests
+      run: vendor/bin/phpunit # Adjust if you use a different test script
+
+    - name: Run PHP CodeSniffer
+      run: vendor/bin/phpcs # Adjust if you use a different linter
+
+    - name: Run PHP-CS-Fixer
+      run: vendor/bin/php-cs-fixer fix --dry-run --diff # Adjust if you use a different formatter
+
+    - name: Build
+      run: |
+        # Add any build steps if needed
+        # For example, if you have a custom build script, run it here
+
+    # Deploy to GitHub Pages
+    - name: Deploy to GitHub Pages
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./public # Adjust this to the correct directory for your project
