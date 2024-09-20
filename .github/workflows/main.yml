@@ -3,12 +3,12 @@ name: PHP Workflow
 on:
   push:
     branches:
-      - main
+      - master
     tags:
       - 'v*.*.*' # Matches version tags like v1.0.0
   pull_request:
     branches:
-      - main
+      - master
 
 jobs:
   build:
