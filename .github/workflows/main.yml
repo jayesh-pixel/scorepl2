@@ -19,7 +19,7 @@ jobs:
       uses: actions/checkout@v3
 
     - name: Set up PHP
-      uses: shivammathur/setup-php@v3
+      uses: shivammathur/setup-php@v2
       with:
         php-version: '8.1' # or your preferred PHP version
 
@@ -40,10 +40,9 @@ jobs:
         # Add any build steps if needed
         # For example, if you have a custom build script, run it here
 
-    - name: Publish to Packagist
-      if: startsWith(github.ref, 'refs/tags/v') # Only run this step for version tags
-      run: |
-        composer config --global http-basic.repo.packagist.com ${{ secrets.PACKAGIST_USERNAME }} ${{ secrets.PACKAGIST_TOKEN }}
-        composer publish
-      env:
-        PACKAGIST_TOKEN: ${{ secrets.PACKAGIST_TOKEN }}
+    # Deploy to GitHub Pages
+    - name: Deploy to GitHub Pages
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./public # Adjust this to the correct directory for your project
